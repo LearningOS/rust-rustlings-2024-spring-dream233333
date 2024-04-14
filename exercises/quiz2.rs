@@ -20,7 +20,7 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
+
 
 pub enum Command {
     Uppercase,
@@ -32,20 +32,33 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
+    pub fn transformer(input: Vec<(String,Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+        let mut output:Vec<String> = vec![];
         for (string, command) in input.iter() {
-            // TODO: Complete the function body. You can do it!
+            // TODO: Complete the function body. You can do it!  
+            let result=match command {
+                Command::Uppercase=>string.to_uppercase(),
+                Command::Trim=>string.trim().to_string(),
+                Command::Append(count)=>{
+                    let mut new_string = String::from(string); 
+                    for i in 0..*count{
+                        /*问了一下gpt:input.iter() 返回的是对 (String, &Command) 的迭代器，
+                        所以在 match 表达式中 command 的类型是 &Command，
+                        对于 Command::Append(count) 的情况，count 也应当是一个引用类型 &usize。*/
+                        new_string.push_str("bar");
+                    }new_string //确保每次调用都基于一个新的字符串
+                }
+                };output.push(result);            
         }
-        output
+        output}
     }
-}
+
 
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]
