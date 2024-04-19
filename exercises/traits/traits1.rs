@@ -14,11 +14,12 @@ trait AppendBar {
 
 impl AppendBar for String {
     // TODO: Implement `AppendBar` for type `String`.
-    fn append_bar(self) -> String{
+    fn append_bar(self) -> Self{
         let bar_="Bar";
         format!("{}{}",self,bar_)
     }
 }
+
 
 fn main() {
     let s = String::from("Foo");
