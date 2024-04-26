@@ -11,8 +11,8 @@ fn main() {
         .unwrap()
         .as_secs(); // What's the use of this timestamp here?
     // 设置环境变量 TEST_FOO
-    let your_command = format!("export TEST_FOO={}", timestamp);
-       println!("cargo:rerun-if-env-changed=TEST_FOO");
+    let your_command = format!("rustc-env=TEST_FOO={}", timestamp);
+ 
        println!("cargo:{}", your_command);
 
     // In tests8, we should enable "pass" feature to make the
