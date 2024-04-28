@@ -1,11 +1,13 @@
 /*
 	bfs
 	This problem requires you to implement a basic BFS algorithm
+    广度优先算法
 */
 
-//I AM NOT DONE
-use std::collections::VecDeque;
 
+
+use std::collections::VecDeque;
+//使用可增长的环形缓冲区实现的双端队列
 // Define a graph
 struct Graph {
     adj: Vec<Vec<usize>>, 
@@ -15,11 +17,11 @@ impl Graph {
     // Create a new graph with n vertices
     fn new(n: usize) -> Self {
         Graph {
-            adj: vec![vec![]; n],
+            adj: vec![vec![]; n],//二维向量，存储图的所有邻接节点列表
         }
     }
 
-    // Add an edge to the graph
+    // Add an edge to the graph 将关联节点添加到彼此列表中
     fn add_edge(&mut self, src: usize, dest: usize) {
         self.adj[src].push(dest); 
         self.adj[dest].push(src); 
@@ -27,10 +29,25 @@ impl Graph {
 
     // Perform a breadth-first search on the graph, return the order of visited nodes
     fn bfs_with_return(&self, start: usize) -> Vec<usize> {
-        
-		//TODO
-
         let mut visit_order = vec![];
+        let mut visited = vec![false; self.adj.len()]; 
+
+        let mut queue = VecDeque::new();
+        queue.push_back(start); 
+        
+        while let Some(current) = queue.pop_front() {
+        //结束：队列为空且全部被访问
+            if !visited[current] {
+                //访问表里没有该节点，加入访问表。//针对邻居节点判断
+                visited[current]=true; 
+                visit_order.push(current); 
+                for &neighbor in &self.adj[current] {//对树的每个节点
+                    if !visited[neighbor] {
+                        queue.push_back(neighbor);
+                    }
+                }
+            }
+        }
         visit_order
     }
 }
